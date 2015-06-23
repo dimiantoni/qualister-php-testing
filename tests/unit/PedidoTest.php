@@ -18,18 +18,18 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 	 * @group Importantes
 	 * @author Dimi
 	 * @small
+	 * @covers Pedido
+	 * @covers Pedido::getPedidoitens
 	 */
 	public function ListaDePedidosDeveConter0Itens()
 	{
-		// Arrange
-		
+		// Arrange		
 		
 		// Act
 		$pedidoItens = $this->pedido->getPedidoItens();
 		
 		// Assert
-		$this->assertCount(0, $pedidoItens);
-		
+		$this->assertCount(0, $pedidoItens);		
 	}
 	
 	/**
@@ -37,6 +37,9 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 	 * @group Importantes
 	 * @author Antoni
 	 * @medium
+	 * @covers Pedido
+	 * @covers Pedido::addItemPedido
+	 * @covers Produto
 	 */
 	public function AoAdicionarProdutoAListaDeveraConterApenas1Item()
 	{
@@ -51,12 +54,53 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
+	 * @test
+	 * @author Dimi
+	 * @covers PedidoServicos
+	 * @covers PedidosServicos::salvar
+	 * @covers Pedidos
+	 * @covers Pedidos::addItemPedido
+	 * @covers Pedidos::getPedidoItens
+	 * @covers Produto
+	 * @dataProvider dataAdicionar2ProdutosSalvarPedidoEReceberMensagemDeSucesso
+	 */
+	public function adicionar2ProdutosSalvarPedidoEReceberMensagemDeSucesso(
+		$id1,$nome1,$est1,$val1,$qtd1,$id2,$nome2,$est2,$val2, $qtd2,$resp		
+	)
+	{
+		// Arrange
+		$produto1 = new Produto($id1, $nome1, $est1, $val1);
+		$produto2 = new Produto($id2, $nome2, $est2, $val2);
+		$pedidoservicos = new PedidoServicos();
+		// Act
+		$this->pedido->addItemPedido($produto1, $qtd1);
+		$this->pedido->addItemPedido($produto2, $qtd2);
+		$status = $pedidoservicos->salvar($this->pedido);
+		// Assert
+		$this->assertEquals($resp, $status);
+	}
+	
+	function dataAdicionar2ProdutosSalvarPedidoEReceberMensagemDeSucesso()
+	{
+		return array_map(
+			'str_getcsv',
+			file('tests/ddt/adicionar2ProdutosSalvarPedidoEReceberMensagemDeSucesso.csv')
+		);
+		
+		/* return array(
+				array(1,"PS",5,99,2,2,"XB",10,12.80,5,"Sucesso"),
+				array(2,"GB",5,88,2,2,"SS",8,16.70,4,"Sucesso"),
+				array(3,"GG",5,95,2,2,"FL",1,13.90,3,"Sucesso")
+		); */
+	}
+	
+	/**
 	 * @group excecoes
 	 * @expectedException        Exception
 	 * @expectedExceptionCode    20
 	 * @expectedExceptionMessage Problema
 	 */
-	public function testLancarExceptionEoTipoSeraException()
+	public function testLancarExceptionComUmaMensagemCodigo20()
 	{
 		throw new Exception("Problemas",20);
 	}

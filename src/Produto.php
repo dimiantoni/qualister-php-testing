@@ -1,20 +1,19 @@
 <?php
 
-class Produto
+class Produto implements IProduto
 {
 	private $produtoId;
 	private $produtoNome;
 	private $produtoEstoque;
 	private $produtoValor;
 
-	public function __construct($id, $nome, $estoque, $valor)
+	public function __construct($produtoId,$produtoNome,$produtoEstoque, $produtoValor)
 	{
-			$this->produtois = $id;
-			$this->produtoNome = $nome;
-			$this->produtoEstoque = $estoque;
-			$this->produtoValor = $valor;
+			$this->produtoId = $produtoId;
+			$this->produtoNome = $produtoNome;
+			$this->produtoEstoque = $produtoEstoque;
+			$this->produtoValor = $produtoValor;
 	}
 
 }
-
 ?>

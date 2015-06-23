@@ -8,4 +8,12 @@ stopOnFailure="false"
 		<directory>tests/unit/</directory>
 		</testsuite>
 	</testsuites>
+	<!--<groups>
+		<include>
+			<group>small</group>
+		</include>
+		<exclude>
+			<group>medium</group>
+		</exclude>
+	</groups>-->
 </phpunit>
