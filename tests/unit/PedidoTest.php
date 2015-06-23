@@ -6,12 +6,7 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 	{
 		echo "Iniciando os Testes\n";
 	}
-	
-	public static function tearDownAfterClass()
-	{
-		echo "Finalizando os Testes\n";
-	}
-	
+			
 	private $pedido;
 	protected function setUp()
 	{
@@ -20,6 +15,9 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 	
 	/**
 	 * @test
+	 * @group Importantes
+	 * @author Dimi
+	 * @small
 	 */
 	public function ListaDePedidosDeveConter0Itens()
 	{
@@ -36,6 +34,9 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 	
 	/**
 	 * @test
+	 * @group Importantes
+	 * @author Antoni
+	 * @medium
 	 */
 	public function AoAdicionarProdutoAListaDeveraConterApenas1Item()
 	{
@@ -47,6 +48,22 @@ class PedidoTest extends PHPUnit_Framework_TestCase
 		// Assert
 		$this->assertCount(1, $pedidoitens);
 		$this->assertEquals(array($produto, 2), $pedidoitens[0]);
+	}
+	
+	/**
+	 * @group excecoes
+	 * @expectedException        Exception
+	 * @expectedExceptionCode    20
+	 * @expectedExceptionMessage Problema
+	 */
+	public function testLancarExceptionEoTipoSeraException()
+	{
+		throw new Exception("Problemas",20);
+	}
+	
+	public static function tearDownAfterClass()
+	{
+		echo "Finalizando os Testes\n";
 	}
 }
 
