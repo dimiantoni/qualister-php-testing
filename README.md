@@ -1,2 +1,2 @@
 # qualister-php-testing
-Curso de Testes da Qualister no GrupoW
+Curso de TDD com PHP Unit da Qualister
